@@ -1,0 +1,77 @@
+---
+title: "Iris K-means Clustering"
+author: "Zhenghao Xiao"
+date: "6/30/2020"
+output: slidy_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(knitr)
+```
+
+## Introduction
+
+This is a demo of R Shiny interactive web-application. The Shiny web-application is aiming at creating a visualization of k-means clustering by using the R built-in Iris dataset. 
+
+### Data
+
+The Iris dataset consists of 50 samples from each of three species of Iris: Iris setosa, Iris virginica and Iris versicolor. Four features were measured from each sample: the length and the width of the sepals and petals in centimeters. Thus, the Iris dataset is a good dataset for demonstrating basic clustering algorithms. 
+
+### K-means Clustering
+
+K-means clustering is a method that partition observations into k clusters in which each observation belongs to the cluster with the nearest mean by minimizing the within-cluster variances. 
+
+### Sources
+
+The application is hosted at [shinyapps.io](https://zhenghaoxiao.shinyapps.io/shiny_demo/), source code of the Shiny application is on [GitHub](https://github.com/ZhenghaoXiao32/A-Shiny-Demo).
+
+## Application Layout
+
+* Side Panel
+
+The side panel controls the two variables in Iris dataset and number of clusters we choose for the k-means clustering algorithm. By default, the number of clusters is set to three just as the natural Iris species. Only two variables are allowed to pick considered the difficulty of visualization.
+
+* Main Panel
+
+   + Plot of clustering
+
+   Displays the clustering result of the chosen parameters.
+
+   + Centers of clustering 
+
+   Summarizes the means of the clusters.
+
+## Example Plot
+
+By selecting the X variable as Sepal.Length, Y variable as Sepal.Width, Cluster count as 3, we can get the plot of clustering as below:
+
+```{r, echo=FALSE}
+set.seed(1234)
+selected_iris <- iris[, c("Sepal.Length", "Sepal.Width")]
+sample_cluster <- kmeans(selected_iris, 3)
+palette(c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3",
+                  "#FF7F00", "#FFFF33", "#A65628", "#F781BF", "#999999"))
+        
+par(mar = c(5.1, 4.1, 0, 1))
+plot(selected_iris,
+     col = sample_cluster$cluster,
+     pch = 20, cex = 3)
+text(sample_cluster$centers, cex = 4, lwd = 4)
+```
+
+
+
+## Example table
+
+Following the same settings in the plot, here comes the centers of clusters:
+```{r, echo=FALSE, results='asis'}
+kable(cbind(data.frame(Clusters = as.integer(seq(1, nrow(sample_cluster$centers), by = 1))),
+            data.frame(sample_cluster$centers)))
+
+```
+
+
+
+

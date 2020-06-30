@@ -1,0 +1,12 @@
+name: shiny_demo
+title: shiny_demo
+username:
+account: zhenghaoxiao
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2522889
+bundleId: 3335973
+url: https://zhenghaoxiao.shinyapps.io/shiny_demo/
+when: 1593549884.56758
+asMultiple: FALSE
+asStatic: FALSE
